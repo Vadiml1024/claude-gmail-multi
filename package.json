@@ -1,0 +1,51 @@
+{
+  "name": "gmail-multi-mcp",
+  "version": "0.1.0",
+  "description": "A local MCP server that connects multiple Gmail accounts to Claude (and any MCP client). Search, read, draft, send, label, and organize mail across as many accounts as you like.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Saurabh Jain",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "gmail",
+    "claude",
+    "claude-code",
+    "email",
+    "multi-account"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vinksj/claude-gmail-multi.git"
+  },
+  "bin": {
+    "gmail-multi-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "auth": "tsx src/auth-cli.ts",
+    "start": "node dist/index.js",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "googleapis": "^173.0.0",
+    "nodemailer": "^8.0.11",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "@types/nodemailer": "^8.0.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
