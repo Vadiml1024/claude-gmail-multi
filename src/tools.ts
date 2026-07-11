@@ -26,7 +26,7 @@ const fail = (e: unknown): ToolResult => ({
 
 function safeDownloadFilename(input: string): string {
   const basename = path.basename(input);
-  const cleaned = basename.replace(/[^A-Za-z0-9._()\- @]/g, '_').replace(/^\.+/, '').trim();
+  const cleaned = basename.replace(/[^A-Za-z0-9._()\- ]/g, '_').replace(/^\.+/, '').trim();
   const compact = cleaned.replace(/\s+/g, ' ');
   const noTrailingDots = compact.replace(/[. ]+$/g, '');
   return (noTrailingDots || 'attachment').slice(0, 180);

@@ -2,6 +2,7 @@ import http from 'node:http';
 import { spawn } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import type { AddressInfo } from 'node:net';
+import type { CodeChallengeMethod } from 'google-auth-library';
 import { google } from 'googleapis';
 import { loadClientCredentials, loadConfig, saveConfig, writeToken, dropClient } from './accounts.js';
 
@@ -46,7 +47,7 @@ export async function authorizeAccount(
     scope: [GMAIL_SCOPE],
     login_hint: expectedEmail,
     state: oauthState,
-    code_challenge_method: 'S256' as any,
+    code_challenge_method: 'S256' as CodeChallengeMethod,
     code_challenge: codeChallenge,
   });
 
