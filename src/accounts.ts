@@ -79,7 +79,20 @@ export interface StoredToken {
 }
 
 function tokenPath(entry: AccountEntry): string {
-  return path.join(BASE_DIR, entry.tokenFile);
+  const rel = entry.tokenFile.replace(/\\/g, '/');
+  if (!rel || path.isAbsolute(rel)) {
+    throw new Error(`Invalid token path "${entry.tokenFile}" for account ${entry.email}.`);
+  }
+  const normalizedRel = path.posix.normalize(rel);
+  if (normalizedRel === '..' || normalizedRel.startsWith('../')) {
+    throw new Error(`Refusing token path outside ${BASE_DIR} for account ${entry.email}.`);
+  }
+  const full = path.resolve(BASE_DIR, normalizedRel);
+  const base = path.resolve(BASE_DIR);
+  if (full !== base && !full.startsWith(`${base}${path.sep}`)) {
+    throw new Error(`Refusing token path outside ${BASE_DIR} for account ${entry.email}.`);
+  }
+  return full;
 }
 
 export function writeToken(entry: AccountEntry, token: StoredToken): void {
